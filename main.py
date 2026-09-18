@@ -1,12 +1,38 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.model_selection import train_test_split
 
 # getting data from csv
 df = pd.read_csv("data/Heart_disease_statlog.csv")
-print(df.head()) # show 5 rows
-print(df.info()) # show column types
-print(df.describe()) # show stats, numeric columns
-print(df["target"].value_counts()) # show the label/target counts
+
+# show 5 rows
+# print(df.head()) 
+
+# show column types
+# print(df.info()) 
+
+# show stats, numeric columns
+# print(df.describe()) 
+
+# show the label/target counts
+# print(df["target"].value_counts()) 
+
+# show graph instead of plain print using seaborn and matplotlib
+# show who has disease and who is not
+# sns.countplot(x="target", data=df)
+# plt.title("Target Distribution (0 = No, 1 = Disease)")
+# plt.show()
+
+#correlation heatmap 
+# df.corr() computes correlation coefficent between every pair of col
+# annot=True print number inside each heatmap cell
+# cmap="coolwarm" color schema, red = positie, blue = negative
+# fmt=".2f" round numbers to 2 decimal places
+plt.figure(figsize=(12, 8))
+sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Feature Correlation Heatmap")
+plt.show()
 
 # remote the target column from dataframe
 # axis=1, drop a column (axis=0, drop a row)
@@ -14,6 +40,7 @@ x = df.drop("target", axis=1)
 
 # get the target column only
 y = df["target"]
+
 
 # x featuers, y label
 # x_train features for training, y_train labels matching x_train
